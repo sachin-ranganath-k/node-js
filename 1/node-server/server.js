@@ -2,9 +2,15 @@ const http = require("http");
 const SERVER_PORT = 3000;
 
 const server = http.createServer((request, response) => {
-  console.log(request)
-  response.writeHead(200, { "Content-Type": "text/plain" });
-  response.end("Response End..!");
+  // console.log(request)
+
+  //Response with json data
+  const student = {
+    studName: "Sachin",
+    branch: "CS",
+  };
+  response.writeHead(200, { "Content-Type": "application/json" }); //Since the content is of type JSON
+  response.end(JSON.stringify(student)); //Sending response in JSON format to the client
 });
 
 server.listen(`${SERVER_PORT}`, () => {
