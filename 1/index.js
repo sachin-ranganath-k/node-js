@@ -16,7 +16,7 @@ require("./modules/student2"); //Sachin
 
 //Above statements work using IIFE and will be converted like,
 /*
-(function () {
+(function (exports, require, module, __filename, __dirname) {
   const student = "Ranganath";
   console.log(student);
 })();
@@ -28,3 +28,4 @@ require("./modules/student2"); //Sachin
 */
 
 /************************************************** */
+
