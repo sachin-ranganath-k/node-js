@@ -1,8 +1,8 @@
 const http = require("http");
 
 const server = http.createServer((req, res) => {
-  console.log(req);
-  //process.exit()  //Exits from the server execution
+  console.log(req.url, req.headers, req.method);
+//   process.exit()  //Exits from the server execution
 });
 
 server.listen(3000);
