@@ -28,20 +28,25 @@ const server = http.createServer((req, res) => {
     req.on("data", (chunk) => {
       body.push(chunk);
     });
-    //Add all chunks into the bosy
-    req.on("end", () => {
+    //Add all chunks into the body
+
+    //req.on("end") : Triggers automatically once nodejs is done parsing the request.
+    return req.on("end", () => {
       const parsedBody = Buffer.concat(body).toString();
       //console.log(parsedBody)  //Prints the entered text in the textbox
       const msg = parsedBody.split("=")[1];
-      fs.writeFileSync("message.txt", msg);
-    });
 
-    //fs.writeFileSync("message.txt", "Dummy Text");
-    res.statusCode = 302;
-    //302 : Indicates that the resource requested has been temporarily moved to the URL given by the Location header.
-    //Can be seen in Network tab
-    res.setHeader("Location", "/");
-    return res.end();
+      //writeFileSync() : Synchronous
+      //writeFile() : Asynchronous (Use this)
+      fs.writeFile("message.txt", msg, (err) => {
+        //fs.writeFileSync("message.txt", "Dummy Text");
+        res.statusCode = 302;
+        //302 : Indicates that the resource requested has been temporarily moved to the URL given by the Location header.
+        //Can be seen in Network tab
+        res.setHeader("Location", "/");
+        return res.end();
+      });
+    });
   }
 
   res.setHeader("Content-Type", "text/html");
