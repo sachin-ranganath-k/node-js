@@ -10,3 +10,9 @@ The event loop continuously monitors the call stack, and when the call stack is 
 The event loop basically helps us the javascript engine in the execution of the asynchronous callbacks and promises.
 The event loop executes the oldest task first.
 The event loop in node.js gives priority to the microtask queue more than macrotask queue.
+
+
+
+--- Buffers
+The buffers module provides a way of handling streams of binary data.
+The Buffer object is a global object in Node.js, and it is not necessary to import it using the require keyword.

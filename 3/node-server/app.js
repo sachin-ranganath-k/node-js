@@ -15,16 +15,29 @@ const server = http.createServer((req, res) => {
     res.write("<html>");
     res.write("<head></head>");
     res.write(
-      "<body><form action=/message method=POST><input type=text><button type=submit>Send</button></form></body>"
+      "<body><form action=/message method=POST><input type=text name=message><button type=submit>Send</button></form></body>"
     );
     res.write("</html>");
     return res.end(); //return: will execute the next lines of code. if not return, will not execute other lines of code
   }
 
-
   if (url === "/message" && method === "POST") {
-    fs.writeFileSync("message.txt", "Dummy Text");
-    res.statusCode = 302; 
+    //req.on('data) : Executes for every chunk as it comes. (it can come once or multiple times)
+    //And we push each chunk as it comes into the request body.
+    const body = [];
+    req.on("data", (chunk) => {
+      body.push(chunk);
+    });
+    //Add all chunks into the bosy
+    req.on("end", () => {
+      const parsedBody = Buffer.concat(body).toString();
+      //console.log(parsedBody)  //Prints the entered text in the textbox
+      const msg = parsedBody.split("=")[1];
+      fs.writeFileSync("message.txt", msg);
+    });
+
+    //fs.writeFileSync("message.txt", "Dummy Text");
+    res.statusCode = 302;
     //302 : Indicates that the resource requested has been temporarily moved to the URL given by the Location header.
     //Can be seen in Network tab
     res.setHeader("Location", "/");
