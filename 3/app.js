@@ -15,13 +15,16 @@ extended:false --> The extended option allows to choose between parsing the URL-
 extended:true --> The qs (query string) library (when true).
 */
 
+//app.use executes for all methods like GET, POST.
+//To overcome we can use app.get, app.post.....
+
 app.use("/add-product", (req, res, next) => {
   res.send(
     '<form action="/product" method="POST"><input type="text" name="productTitle"><button type="submit">Add Product</button></form>'
   );
 });
 
-app.use("/product", (req, res, next) => {
+app.post("/product", (req, res, next) => {
   console.log(req.body);
   res.redirect("/"); //Redirects to /
 });
