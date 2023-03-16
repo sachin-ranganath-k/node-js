@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/add-product", (req, res, next) => {
   res.send(
-    '<form action="/product" method="POST"><input type="text" name="productTitle"><button type="submit">Add Product</button></form>'
+    '<form action="/admin/product" method="POST"><input type="text" name="productTitle"><button type="submit">Add Product</button></form>'
   );
 });
 
@@ -18,4 +18,4 @@ router.post("/product", (req, res, next) => {
 
 module.exports = router;
 
-//javascript code to add 2 numbers 
+//javascript code to add 2 numbers

@@ -20,7 +20,7 @@ extended:true --> The qs (query string) library (when true).
 
 //Order doesn't matter here
 app.use(shopRoutes);
-app.use(adminRoutes);
+app.use('/admin',adminRoutes);
 
 app.use((req, res, next) => {
   res.status(404).send("<h1>Page not found</h1>");
