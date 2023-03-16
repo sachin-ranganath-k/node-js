@@ -1,0 +1,1 @@
+views folder contains the HTML files
