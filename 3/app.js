@@ -18,11 +18,13 @@ extended:false --> The extended option allows to choose between parsing the URL-
 extended:true --> The qs (query string) library (when true).
 */
 
-
 //Order doesn't matter here
 app.use(shopRoutes);
 app.use(adminRoutes);
 
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found</h1>");
+});
 
 const server = http.createServer(app);
 
