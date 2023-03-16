@@ -6,6 +6,9 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 /*
 bodyParser.urlencoded() :--> A function provided by the body-parser package that 
@@ -15,23 +18,11 @@ extended:false --> The extended option allows to choose between parsing the URL-
 extended:true --> The qs (query string) library (when true).
 */
 
-//app.use executes for all methods like GET, POST.
-//To overcome we can use app.get, app.post.....
 
-app.use("/add-product", (req, res, next) => {
-  res.send(
-    '<form action="/product" method="POST"><input type="text" name="productTitle"><button type="submit">Add Product</button></form>'
-  );
-});
+//Order doesn't matter here
+app.use(shopRoutes);
+app.use(adminRoutes);
 
-app.post("/product", (req, res, next) => {
-  console.log(req.body);
-  res.redirect("/"); //Redirects to /
-});
-
-app.use("/", (req, res, next) => {
-  res.send("<h2>Path / route</h2>");
-});
 
 const server = http.createServer(app);
 
