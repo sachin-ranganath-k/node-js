@@ -16,6 +16,21 @@ app.use(bodyParser.json()); //Returns middleware that only parses json and only 
 //   });
 // });
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authoization"
+  );
+  if (req.method === "OPTIONS") {
+    res.header("Access-Control-Allow-Headers", "PUT, POST, PATCH, DELETE, GET");
+    return res.json(200).json({});
+  }
+  next(); //Other requests can take over
+});
+
+//The above setup will be done first. And then it continues below
+
 app.use("/products", productRoutes);
 app.use("/orders", orderRoutes);
 
@@ -33,7 +48,5 @@ app.use((error, req, res, next) => {
     },
   });
 });
-
-
 
 module.exports = app;
