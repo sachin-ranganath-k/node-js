@@ -3,9 +3,20 @@ const bodyParser = require("body-parser");
 const con = require("../Database/Database");
 
 const app = express();
+const router = express.Router();
 app.use(bodyParser.json());
 
-app.post("/user/add", (req, res) => {
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, DELETE, PATCH"
+//   );
+//    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+//   next();
+// });
+
+router.post("/user/add", (req, res) => {
   let data = { userName: req.body.userName, email: req.body.email };
   let query = "INSERT into user SET ?";
   let queryExec = con.query(query, data, (error, result) => {
@@ -28,7 +39,7 @@ app.post("/user/add", (req, res) => {
   });
 });
 
-app.get("/user/viewAll", (req, res) => {
+router.get("/user/viewAll", (req, res) => {
   const sql = "SELECT * from user";
   const queryExec = con.query(sql, (error, result) => {
     if (error) {
@@ -46,7 +57,7 @@ app.get("/user/viewAll", (req, res) => {
   });
 });
 
-app.get("/user/fetchUser/:id", (req, res) => {
+router.get("/user/fetchUser/:id", (req, res) => {
   const sql = "SELECT * FROM user WHERE userId=?";
   const values = [req.params.id];
   con.query(sql, values, (error, result) => {
@@ -65,7 +76,7 @@ app.get("/user/fetchUser/:id", (req, res) => {
   });
 });
 
-app.put("/user/updateUser/:id", (req, res) => {
+router.put("/user/updateUser/:id", (req, res) => {
   const id = req.params.id;
   const userName = req.body.userName;
   const email = req.body.email;
@@ -88,4 +99,4 @@ app.put("/user/updateUser/:id", (req, res) => {
   });
 });
 
-module.exports = app;
+module.exports = router;
