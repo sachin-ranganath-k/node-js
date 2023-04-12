@@ -3,8 +3,7 @@ const UserRoutes = require("./src/Routes/UserRoutes");
 const TaskRoutes = require("./src/Routes/TaskRoutes");
 
 const app = express();
-app.use(UserRoutes);
-app.use(TaskRoutes);
+
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -15,6 +14,9 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+app.use(UserRoutes);
+app.use(TaskRoutes);
 
 const PORT = 3002;
 app.listen(PORT, () => {

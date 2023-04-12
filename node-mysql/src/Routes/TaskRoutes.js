@@ -41,23 +41,23 @@ router.post("/task/add", (req, res) => {
   });
 });
 
-// app.get("/user/viewAll", (req, res) => {
-//   const sql = "SELECT * from user";
-//   const queryExec = con.query(sql, (error, result) => {
-//     if (error) {
-//       res.status(400).json({
-//         status: 400,
-//         message: "Error...!",
-//       });
-//     }
-//     res.status(200).json({
-//       status: 200,
-//       error: null,
-//       responseData: result,
-//       message: "Fetched Successfully..!",
-//     });
-//   });
-// });
+router.get("/task/viewAll", (req, res) => {
+  const sql = "SELECT * from tasks";
+  const queryExec = con.query(sql, (error, result) => {
+    if (error) {
+      res.status(400).json({
+        status: 400,
+        message: "Error...!",
+      });
+    }
+    res.status(200).json({
+      status: 200,
+      error: null,
+      responseData: result,
+      message: "Fetched Successfully..!",
+    });
+  });
+});
 
 // app.get("/user/fetchUser/:id", (req, res) => {
 //   const sql = "SELECT * FROM user WHERE userId=?";
